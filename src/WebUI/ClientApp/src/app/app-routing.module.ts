@@ -13,7 +13,8 @@ export const routes: Routes = [
   { path: 'fetch-data', component: FetchDataComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
-  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] }
+  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] },
+  { path: 'bible', loadChildren: () => import('./bible/bible.module').then(m => m.BibleModule) },  
 ];
 
 @NgModule({

@@ -1,15 +1,14 @@
 <header>
   <nav
     class="
-      navbar navbar-expand-sm navbar-toggleable-sm navbar-light
-      bg-white
+      navbar navbar-expand-sm navbar-toggleable-sm navbar-light      
       border-bottom
       box-shadow
-      mb-3
+      mb-3      
     "
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Bible.WebUI</a>
+      <a class="navbar-brand" [routerLink]="['/']"> <h2 class="text-uppercase">Bible</h2> </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -52,6 +51,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="/api" target="_blank">API</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" [routerLink]="['/bible']">Bible</a>
           </li>
         </ul>
       </div>

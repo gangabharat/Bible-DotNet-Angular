@@ -1,6 +1,19 @@
 <body>
   <app-nav-menu></app-nav-menu>
   <div class="container">
+    <div class="text-center text-info fixed-top" *ngIf="isLoading">
+      <div class="spinner-border" role="status"></div>
+    </div>
+
+    <!-- <div class="bd-callout bd-callout-info">
+      <strong>New to or unfamiliar with flexbox?</strong> <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background">Read this CSS Tricks flexbox guide</a> for background, terminology, guidelines, and code snippets.
+      </div> -->
+      
+    <div class="" *ngFor="let data of loadData">
+      <div class="alert alert-success" role="alert">
+        {{data}}
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </body>

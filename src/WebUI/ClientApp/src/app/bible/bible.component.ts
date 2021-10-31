@@ -30,6 +30,7 @@ export class BibleComponent implements OnInit {
   verses : number = 0;
   audioBible : string;
   bibleLanguages : string[] = [];
+  selectedbibleLanguage : string;
 
   audio: any;
   playerStatus : string;
@@ -61,18 +62,24 @@ export class BibleComponent implements OnInit {
     //this.cacheService.load('key');
     //this.bibleStoreService.
 
-    this.bibleStoreService.puppies$.subscribe(res =>{
-      console.log(res);
-      this.cacheService.save({key : 'key',data:res,expirationMins : 1});
-    })
+    // this.bibleStoreService.puppies$.subscribe(res =>{
+    //   console.log(res);
+    //   this.cacheService.save({key : 'key',data:res,expirationMins : 1});
+    // })
     
-    this.audioService.playerStatus.subscribe(res=>{
-      //console.log(res);
-      this.playerStatus = res;
-    })  
+    // this.audioService.playerStatus.subscribe(res=>{
+    //   //console.log(res);
+    //   this.playerStatus = res;
+    // })  
     //this.bibleService.
-    
     this.bibleLanguages = this.bibleService.bibleLanguages;
+    let lang = localStorage.getItem("bibleLanguage"); 
+    if(lang){
+      this.bibleService.BibleLanguage = lang;
+      this.selectedbibleLanguage = lang;
+    }
+
+    
 
     //this.bibleService.
     this.bibleService.getBible().subscribe(
@@ -129,7 +136,17 @@ export class BibleComponent implements OnInit {
     this.onChangeEvent(form);
   }
   onbibleLanguagesChangeEvent(value:string){
-    console.log(value);
+    localStorage.setItem("bibleLanguage",value);
+
+    //let lang = localStorage.getItem("bibleLanguage"); 
+    if(value){
+      this.bibleService.BibleLanguage = value;
+    }
+    this.bibleService.getBible().subscribe(
+      (res : Bible) =>{
+      this.data=res;
+      this.onChangeEvent(this.form);                     
+     });  
   }
   onChangeEvent(form : NgForm)
   { 

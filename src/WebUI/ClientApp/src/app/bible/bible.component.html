@@ -34,7 +34,7 @@
       
       <select class="form-control"  (change)="onbibleLanguagesChangeEvent(bibleLanguagesId.value)" #bibleLanguagesId>  
         <!-- <option value="-1">Book</option>         -->
-        <option *ngFor="let languages of bibleLanguages; let i = index" [value]="languages">
+        <option *ngFor="let languages of bibleLanguages; let i = index" [value]="languages" [selected]="selectedbibleLanguage">
           {{languages}}
         </option>
       </select>

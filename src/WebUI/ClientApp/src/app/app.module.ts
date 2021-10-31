@@ -40,7 +40,7 @@ import { HttpRequestInterceptor } from './shared/interceptor/http-request.interc
     ToastrModule.forRoot({
       timeOut: 1000 * 30,
       positionClass: 'toast-top-right',
-      preventDuplicates: true,
+      //preventDuplicates: true,
       progressBar : true
     }),
     ModalModule.forRoot()

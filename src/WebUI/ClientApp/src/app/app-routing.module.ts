@@ -15,6 +15,7 @@ export const routes: Routes = [
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
   { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] },
   { path: 'bible', loadChildren: () => import('./bible/bible.module').then(m => m.BibleModule) },  
+  { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
 ];
 
 @NgModule({

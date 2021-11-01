@@ -28,13 +28,25 @@ export class ProductService {
     this._puppiesSource.next(puppies);
   }
 
-  add(puppy: Product): void {
-    this.ns.success(puppy.name,`${puppy.name} added`)
+  load(puppy: Product): void {
     const puppies = [...this.get(), puppy];
     this._setPuppies(puppies);
   }
 
+  add(puppy: Product): void {
+    this.ns.success(puppy.id,`Successfully added product ${puppy.name}`);
+    const puppies = [...this.get(), puppy];
+    this._setPuppies(puppies);
+  }
+
+  updatePuppy(puppy: Product): void {
+    this.ns.info(puppy.id,`Successfully updated product ${puppy.name}`);        
+    const puppies = this.get().map(obj => obj.id === puppy.id ? puppy : obj);    
+    this._setPuppies(puppies);    
+  }
+
   removePuppy(puppy: Product): void {
+    this.ns.info(puppy.id,`Successfully deleted product ${puppy.name}`);
     const puppies = this.get().filter(p => p.id !== puppy.id);
     this._setPuppies(puppies);
   }

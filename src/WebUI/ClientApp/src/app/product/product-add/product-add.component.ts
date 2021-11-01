@@ -2,8 +2,9 @@ import { Component, OnInit, TemplateRef } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ProductService } from "../product.service";
 
-import { faPlus, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSave, faUndo } from "@fortawesome/free-solid-svg-icons";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { Product } from "../product.model";
 
 @Component({
   selector: "app-product-add",
@@ -11,31 +12,37 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
   styleUrls: ["./product-add.component.css"],
 })
 export class ProductAddComponent implements OnInit {
-  newListEditor: any = {};
-  listOptionsEditor: any = {};
-  itemDetailsEditor: any = {};
 
   newListModalRef: BsModalRef;
-  listOptionsModalRef: BsModalRef;
-  deleteListModalRef: BsModalRef;
-  itemDetailsModalRef: BsModalRef;
-
   faPlus = faPlus;
-  faEllipsisH = faEllipsisH;
+  faSave = faSave
+  faUndo= faUndo;
+  loading = false;
 
   constructor(
     private productService: ProductService,
     private modalService: BsModalService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.form.
+  }
 
   onSubmit(form: NgForm) {
-    console.log(form);
+   
     if (form.valid) {
-      console.log(form.value.product);
-      this.productService.add(form.value.product);
-      form.resetForm();     
+      this.loading = true;
+      const product = (form.value.product) as Product;   
+      product.id =  new Date().valueOf().toString();
+      console.log(product);
+      this.productService.add(product);
+      form.resetForm();
+
+      this.newListCancelled();
+
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000 * 2);
     }
   }
 

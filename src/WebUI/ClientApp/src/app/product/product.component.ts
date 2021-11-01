@@ -27,7 +27,8 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.products$ = this.productService.puppies$;
+    //this.products$ = this.productService.puppies$;
+    this.loadProducts();
   }
 
   openModal() {
@@ -42,5 +43,18 @@ export class ProductComponent implements OnInit {
   }
   closePopup() {
     this.displayStyle = "none";
+  }
+
+  loadProducts() {
+    for (let i = 0; i < 50; i++) {
+      const product: Product = {
+        id: `${i * 10 * Math.random()}`,
+        address: `${i * 10 * Math.random()}`,
+        model: `${i * 10 * Math.random()}`,
+        name: `${i * 10 * Math.random()}`,
+        number: `${i * 10 * Math.random()}`,
+      };
+      this.productService.load(product);
+    }
   }
 }

@@ -1,0 +1,142 @@
+<!-- <ol class="list-group list-group-numbered">
+  <li
+    *ngFor="let news of newsList; index as i"
+    class="list-group-item d-flex justify-content-between align-items-start"
+  >
+    <div>
+      <div class="">{{ news.Title }}</div>
+    </div>
+    <div class="">
+        {{news.DataClasses | json}}
+    </div>   
+  </li>
+</ol> -->
+
+<!-- AddedDate: "2015-10-26T23:35:45Z"
+BreachDate: "2015-03-01"
+DataClasses: (4) ['Email addresses', 'IP addresses', 'Names', 'Passwords']
+Description: "In approximately March 2015, the free web hosting provider <a href=\"http://www.troyhunt.com/2015/10/breaches-traders-plain-text-passwords.html\" target=\"_blank\" rel=\"noopener\">000webhost suffered a major data breach</a> that exposed almost 15 million customer records. The data was sold and traded before 000webhost was alerted in October. The breach included names, email addresses and plain text passwords."
+Domain: "000webhost.com"
+IsFabricated: false
+IsRetired: false
+IsSensitive: false
+IsSpamList: false
+IsVerified: true
+LogoPath: "https://haveibeenpwned.com/Content/Images/PwnedLogos/000webhost.png"
+ModifiedDate: "2017-12-10T21:44:27Z"
+Name: "000webhost"
+PwnCount: 14936670
+Title: "000webhost" -->
+<div class=""></div>
+
+<!-- <ul class="list-group">
+  <li *ngFor="let news of newsList; index as i" class="list-group-item">
+    <div class=""></div>
+    <div class="img-thumbnail" style="max-width: 200px">
+      <img class="" [src]="news.LogoPath" />
+    </div>
+    <div class="" [innerHTML]="news.Description"></div>
+    <div class="" *ngFor="let DataClass of news.DataClasses">
+      <div class="badge badge-info">{{ DataClass }}</div>
+    </div>
+  </li>
+</ul> -->
+
+<!-- <div class="container">
+  <div class="list-group">
+    <div class="row" *ngFor="let news of newsList; index as i">     
+      <div class="col-md-12">
+        <a
+          href="#"
+          class="
+            list-group-item list-group-item-action
+            flex-column
+            align-items-start
+          "
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ news.Title }}</h5>
+            
+            <span class="badge bg-warning">{{ news.PwnCount }}</span>
+          </div>
+          <div class="mb-1" [innerHtml]="news.Description"></div>
+          <div class="">
+            {{ news.AddedDate | date: "medium" }}
+          </div>
+          <small
+            *ngFor="let DataClass of news.DataClasses"
+            class="badge badge-pill badge-success"
+            >{{ DataClass }}</small
+          >
+          <div class="text-success">            
+            <fa-icon [icon]="faCheck" [hidden]="IsVerified"></fa-icon>            
+          </div>
+          
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- 
+<div class="card-columns">
+  <div class="card" *ngFor="let news of newsList; index as i">    
+    <div class="card-body">
+      <h5 class="card-title text-primary">
+        {{ news.Title }}
+        <fa-icon [icon]="faCheck" class="text-success"  [hidden]="IsVerified"></fa-icon>
+        <fa-icon [icon]="faExclamationTriangle" class="text-danger"  [hidden]="IsSpamList"></fa-icon>
+        <span class="badge badge-primary badge-pill">{{ news.PwnCount }}</span>
+      </h5>
+      <p class="card-text" [innerHtml]="news.Description"></p>
+      <p class="card-text">
+        <small class="text-muted">{{ news.Domain }}</small>
+      </p>
+      <small
+        *ngFor="let DataClass of news.DataClasses"
+        class="badge badge-pill badge-warning"
+        >{{ DataClass }}</small
+      >   
+    </div>
+  </div>
+</div> -->
+<!-- 
+<div class="row">
+<div class="col-md"  *ngFor="let news of newsList; index as i">
+<div class="card">
+  <h5 class="card-header"> {{ news.Title }}</h5>
+  <div class="card-body">
+    <h5 class="card-title text-primary">
+      {{ news.Title }}
+      <fa-icon [icon]="faCheck" class="text-success"  [hidden]="IsVerified"></fa-icon>
+      <fa-icon [icon]="faExclamationTriangle" class="text-danger"  [hidden]="IsSpamList"></fa-icon>
+      <span class="badge badge-primary badge-pill">{{ news.PwnCount }}</span>
+    </h5>    
+    <p class="card-text" innerHtml="{{news.Description.substr(0,100)}}"></p>
+    <p class="card-text">
+      <small class="text-muted">{{ news.Domain }}</small>
+    </p>
+    <small
+      *ngFor="let DataClass of news.DataClasses"
+      class="badge badge-pill badge-warning"
+      >{{ DataClass }}</small
+    >   
+  </div>
+</div>
+</div>
+</div> -->
+<div class="row">
+<div class="card-shadow card mb-1"  *ngFor="let news of newsList; index as i">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img  [src]="news.LogoPath"  class="img-fluid rounded-start" alt="not found">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ news.Title }}</h5>        
+        <p class="card-text" innerHtml="{{news.Description}}"></p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

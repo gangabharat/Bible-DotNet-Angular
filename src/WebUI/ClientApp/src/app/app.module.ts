@@ -18,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenComponent } from './token/token.component';
 import { HttpRequestInterceptor } from './shared/interceptor/http-request.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HttpRequestInterceptor } from './shared/interceptor/http-request.interc
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     FontAwesomeModule,
+    SharedModule,
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
@@ -39,10 +41,11 @@ import { HttpRequestInterceptor } from './shared/interceptor/http-request.interc
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 1000 * 30,
+      enableHtml : true,
       positionClass: 'toast-top-right',
       //preventDuplicates: true,
       progressBar : true
-    }),
+    }),    
     ModalModule.forRoot()
   ],
   providers: [

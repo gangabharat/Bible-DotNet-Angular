@@ -9,22 +9,39 @@
 <ol class="list-group list-group-numbered">
   <li
     *ngFor="let product of products$ | async; index as i"
-    class="list-group-item d-flex justify-content-between align-items-start"
+    class="card-shadow list-group-item d-flex justify-content-between align-items-start mb-3"
   >
-    <div>
-      <div class="text-uppercase">{{ i + 1 }} : {{ product.name }}</div>
-      Cras justo odio
+    <div class="bd-callout bd-callout-info">
+      <div>
+        <div class="text-uppercase">{{ i + 1 }} : {{ product.name }}</div>
+        Cras justo odio
 
-      <button type="button" class="btn btn-info"
-        [popover]="content" [popoverTitle]="title">
-  Simple binding
-</button>
-      <p>
-        <app-product-detail [product]="product"></app-product-detail>
-        <app-product-edit [product]="product"></app-product-edit>
-        <app-product-delete [product]="product"></app-product-delete>
-      </p>
+        <div class="" [innerHTML]="sampleString"></div>
+        <div class="">
+          <app-product-detail [product]="product"></app-product-detail>
+          <app-product-edit [product]="product"></app-product-edit>
+          <app-product-delete [product]="product"></app-product-delete>
+          <span class=""></span>
+          <fa-icon
+            [icon]="faThumbsUp"
+            class="fa fa-2x text-primary"
+            (click)="incrementCounter()"
+          ></fa-icon>
+          <fa-icon
+            [icon]="faHeart"
+            class="fas fa-spinner fa-spin text-danger"
+            (click)="incrementCounter()"
+          ></fa-icon>
+          <p aria-live="polite">
+            Current count: <strong>{{ currentCount }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <span class="badge bg-warning rounded-pill">14</span>
+        <span class="badge bg-warning rounded-pill">{{ i + 1 }}</span>
+      </div>
     </div>
-    <span class="badge bg-warning rounded-pill">14</span>
+    <!-- <span class="badge badge-pill badge-info">{{ getRandom(i + 1)  }}</span> -->
   </li>
 </ol>

@@ -20,7 +20,7 @@ export class ProductService {
   constructor(private ns: NotificationService) {}
 
   // Get last value without subscribing to the puppies$ observable (synchronously).
-  get(): Product[] {
+  get(): Product[] {    
     return this._puppiesSource.getValue();
   }
 

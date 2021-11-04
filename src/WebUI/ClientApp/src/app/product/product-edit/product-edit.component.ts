@@ -54,12 +54,13 @@ export class ProductEditComponent implements OnInit {
       const product = form.value.product as Product;      
       console.log(product);
       this.productService.updatePuppy(product);
-      form.resetForm();
+    
 
       this.newListCancelled();
 
       setTimeout(() => {
-        this.loading = false;
+        this.loading = false; 
+        form.resetForm();
       }, 1000 * 2);
     }
   }

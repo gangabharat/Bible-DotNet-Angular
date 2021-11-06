@@ -10,7 +10,7 @@ describe('ProductAddComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ProductAddComponent ]
     })
-    .compileComponents();
+    .compileComponents();newModalTemplate
   });
 
   beforeEach(() => {

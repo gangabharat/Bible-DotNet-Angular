@@ -18,6 +18,7 @@ export const routes: Routes = [
   { path: 'bible', loadChildren: () => import('./bible/bible.module').then(m => m.BibleModule) },  
   { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'news', loadChildren: () => import('./news/news.module').then(m => m.NewsModule) },
+  { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
 ];
 
 @NgModule({

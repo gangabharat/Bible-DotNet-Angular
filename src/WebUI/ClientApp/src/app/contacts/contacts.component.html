@@ -1,0 +1,7 @@
+<button class="btn btn-primary" (click)="onAdd()"> Add New</button>
+
+<div class="" *ngFor="let product of products$ | async">
+    {{product | json}}
+    <button class="btn btn-primary" (click)="onDetails(product)">Details</button>
+    <button class="btn btn-warning" (click)="onRemove(product)">delete</button>
+</div>

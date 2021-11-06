@@ -14,3 +14,41 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.badge {
+  margin: auto 2px auto 2px;
+}
+
+// .badge :hover {
+//   -ms-transform: scale(1.5); /* IE 9 */
+//   -webkit-transform: scale(1.5); /* Safari 3-8 */
+//   transform: scale(1.5);
+// }
+.ng-fa-icon {
+  margin: auto 5px auto 5px;
+  cursor: pointer;
+}
+
+// .ng-fa-icon :hover {
+//   -ms-transform: scale(1.5); /* IE 9 */
+//   -webkit-transform: scale(1.5); /* Safari 3-8 */
+//   transform: scale(1.5);
+// }
+
+.card {
+  margin: 10px auto 10px auto;
+}
+
+.card-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.card-shadow:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 100) !important;
+  //cursor: pointer;
+}
+
+img:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5);
+}

@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
         this.isLoading = res;
       }
     );
-    this.httpClient.get({url:"https://jsonplaceholder.typicode.com/photos"}).subscribe();
+    //this.httpClient.get({url:"https://jsonplaceholder.typicode.com/photos"}).subscribe();
   }
 
   // loadUsers(): Promise<any[]> {

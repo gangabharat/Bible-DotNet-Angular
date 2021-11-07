@@ -20,6 +20,7 @@ export class ContactDeleteComponent implements OnInit {
 
   onDelete() {
     this.productService.removePuppy(this.product);
-    this.bsModalService.hide(1);
+    //this.bsModalService.hide(1);
+    this.bsModalService._hideModal(1);
   }
 }

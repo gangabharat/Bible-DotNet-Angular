@@ -49,7 +49,7 @@ import { SharedModule } from './shared/shared.module';
     ModalModule.forRoot()
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

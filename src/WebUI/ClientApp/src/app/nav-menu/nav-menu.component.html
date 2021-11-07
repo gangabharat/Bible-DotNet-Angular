@@ -24,7 +24,7 @@
         class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
         [ngClass]="{ show: isExpanded }"
       >
-        <app-login-menu></app-login-menu>
+        <!-- <app-login-menu></app-login-menu> -->
         <ul class="navbar-nav flex-grow">
           <li
             class="nav-item"
@@ -33,7 +33,12 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+
+          <li class="nav-item">
+            <a class="nav-link text-dark" [routerLink]="['/bible']">Bible</a>
+          </li>
+          
+          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/counter']"
               >Counter</a
             >
@@ -63,7 +68,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" [routerLink]="['/contacts']">Contacts</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

@@ -20,6 +20,9 @@ import { TokenComponent } from './token/token.component';
 import { HttpRequestInterceptor } from './shared/interceptor/http-request.interceptor';
 import { SharedModule } from './shared/shared.module';
 
+import {  StoreModule } from '@ngrx/store';
+import * as fromApp from './store/app.reducer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,8 @@ import { SharedModule } from './shared/shared.module';
       //preventDuplicates: true,
       progressBar : true
     }),    
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    StoreModule.forRoot(fromApp.appReducer)
   ],
   providers: [
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

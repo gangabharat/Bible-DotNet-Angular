@@ -5,7 +5,9 @@ import { Product } from "./product.model";
 
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { ProductAddComponent } from "./product-add/product-add.component";
-
+import { Store } from "@ngrx/store";
+import { AppState } from "../store/app.reducer";
+import * as productActions from "./store/product.action";
 
 @Component({
   selector: "app-product",
@@ -26,21 +28,20 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private bsModalService: BsModalService,
     //private productAddComponent: ProductAddComponent
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     //this.products$ = this.productService.puppies$;
-    this.loadProducts();
-
-    
+    this.store.select("products").subscribe((res) => {
+      console.log(res.products);
+      //res.product
+    });
   }
 
-  onAdd(){
-    this.modalRef = this.bsModalService.show(ProductAddComponent, {
-      animated: true,
-      backdrop: "static",
-    });
-
+  onAdd() {
+    this.loadProducts();
+    //this.modalRef = this.bsModalService.show(ProductAddComponent);
   }
 
   openModal() {
@@ -58,6 +59,7 @@ export class ProductComponent implements OnInit {
   }
 
   loadProducts() {
+    let products: Product[] = [];
     for (let i = 0; i < 50; i++) {
       const product: Product = {
         id: `${i * 10 * Math.random()}`,
@@ -66,7 +68,8 @@ export class ProductComponent implements OnInit {
         name: `${i * 10 * Math.random()}`,
         number: `${i * 10 * Math.random()}`,
       };
-      this.productService.load(product);
+      products.push(product);
     }
+    this.store.dispatch(new productActions.AddProducts(products));
   }
 }

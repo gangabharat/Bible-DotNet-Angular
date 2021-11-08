@@ -3,6 +3,8 @@ import { Product } from "../product.model";
 
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCTS";
+export const DELETE_PRODUCT = "DELETE_PRODUCTS";
 
 export class AddProduct implements Action {
   readonly type = ADD_PRODUCT;
@@ -14,4 +16,18 @@ export class AddProducts implements Action {
   constructor(public payload: Product[]) {}
 }
 
-export type ProductActions = AddProduct | AddProducts;
+export class UpdateProduct implements Action {
+  readonly type = UPDATE_PRODUCT;
+  constructor(public payload: { index: number; product: Product }) {}
+}
+
+export class DeleteProduct implements Action {
+  readonly type = DELETE_PRODUCT;
+  constructor(public payload: number) {}
+}
+
+export type ProductActions =
+  | AddProduct
+  | AddProducts
+  | UpdateProduct
+  | DeleteProduct;

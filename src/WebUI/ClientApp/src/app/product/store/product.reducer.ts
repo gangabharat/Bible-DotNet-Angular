@@ -42,6 +42,29 @@ export function productReducer(
         ...state,
         products: [...state.products, ...action.payload],
       };
+
+    case ProductActions.UPDATE_PRODUCT:
+      const product = state.products[action.payload.index];
+      const updateProuct = {
+        ...product,
+        ...action.payload.product,
+      };
+      const updateProucts = [...state.products];
+      updateProucts[action.payload.index] = updateProuct;
+
+      return {
+        ...state,
+        products: [],
+      };
+
+    case ProductActions.DELETE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter((x, index) => {
+          return index !== action.payload;
+        }),
+      };
+
     default:
       return state;
   }

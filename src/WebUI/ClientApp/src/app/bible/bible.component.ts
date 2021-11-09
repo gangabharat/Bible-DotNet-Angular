@@ -44,6 +44,15 @@ export class BibleComponent implements OnInit {
 
   ngOnInit(): void {
     this.bibleLanguages = this.bibleService.bibleLanguages;
+    let hasSelectedBible = !!this.cacheService.load("selectedBible");
+
+    if (!hasSelectedBible) {
+      this.cacheService.save({
+        key: "selectedBible",
+        data: { Book: 0, Chapter: 1, Language: "english" },
+      });
+    }
+    
     let selectedBible = this.cacheService.load("selectedBible");
 
     if (selectedBible) {
@@ -69,7 +78,8 @@ export class BibleComponent implements OnInit {
   }
 
   getSelectedBible() {
-    this.bibleChapter = this.bibleData.Book[this.book]?.Chapter[this.chapter - 1];
+    this.bibleChapter =
+      this.bibleData.Book[this.book]?.Chapter[this.chapter - 1];
   }
 
   onbibleLanguagesChangeEvent(form: NgForm) {
@@ -79,9 +89,9 @@ export class BibleComponent implements OnInit {
     this.chapter = +form.value.Chapter;
     this.getSelectLanguageBible();
   }
-  onChangeEvent(form: NgForm) {    
+  onChangeEvent(form: NgForm) {
     this.cacheService.save({ key: "selectedBible", data: form.value });
-    
+
     this.book = +form.value.Book;
     this.chapter = +form.value.Chapter;
 

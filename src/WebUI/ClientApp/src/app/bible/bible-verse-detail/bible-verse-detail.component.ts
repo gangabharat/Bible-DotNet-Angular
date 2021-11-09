@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { BsModalService } from "ngx-bootstrap/modal";
 import { Verse } from "../bible";
 
 @Component({
@@ -11,7 +12,11 @@ export class BibleVerseDetailComponent implements OnInit {
   chapter: string;
   verseNumber : string;
   verse: Verse;
-  constructor() {}
+  constructor(private bsModalService : BsModalService) {}
 
   ngOnInit(): void {}
+
+  onClose(){
+    this.bsModalService._hideModal(1);
+  }
 }

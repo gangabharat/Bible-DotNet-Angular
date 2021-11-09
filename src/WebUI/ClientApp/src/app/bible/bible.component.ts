@@ -16,9 +16,10 @@ import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-deta
   styleUrls: ["./bible.component.css"],
 })
 export class BibleComponent implements OnInit {
-
   bibleData: Bible;
   bibleChapter: Chapter;
+  bibleChapters: Chapter[] = [];
+  bibleChaptersCount: number = 0;
 
   book: number = 0;
   chapter: number = 0;
@@ -52,7 +53,7 @@ export class BibleComponent implements OnInit {
         data: { Book: 0, Chapter: 1, Language: "english" },
       });
     }
-    
+
     let selectedBible = this.cacheService.load("selectedBible");
 
     if (selectedBible) {
@@ -73,29 +74,47 @@ export class BibleComponent implements OnInit {
     this.bibleService.BibleLanguage = selectedBible.Language;
     this.bibleService.getBible().subscribe((res: Bible) => {
       this.bibleData = res;
-      this.getSelectedBible();
+      this.loadSelectedBible();
     });
   }
 
-  getSelectedBible() {
+  loadSelectedBible() {
     this.bibleChapter =
       this.bibleData.Book[this.book]?.Chapter[this.chapter - 1];
+    this.bibleChapters = this.bibleData.Book[this.book].Chapter;
+    this.getBibleChaptersCount();
   }
 
-  onbibleLanguagesChangeEvent(form: NgForm) {
+  getBibleChaptersCount() {
+    return this.bibleData.Book[this.book].Chapter.length;
+  }
+
+  onBookChangeEvent(form: NgForm) {
+    this.book = +form.value.Book;
+    form.control.patchValue({ Chapter: 1 });
+    this.chapter = +form.value.Chapter;
+    this.cacheService.save({ key: "selectedBible", data: form.value });
+    this.loadSelectedBible();
+  }
+
+  onChapterChangeEvent(form: NgForm) {
+    this.cacheService.save({ key: "selectedBible", data: form.value });
+
+    this.book = +form.value.Book;
+    this.chapter = +form.value.Chapter;
+
+    this.loadSelectedBible();
+
+    if (this.bibleChapters.length < this.chapter)
+      form.control.patchValue({ Chapter: 1 });
+  }
+
+  onLanguageChangeEvent(form: NgForm) {
     this.cacheService.save({ key: "selectedBible", data: form.value });
 
     this.book = +form.value.Book;
     this.chapter = +form.value.Chapter;
     this.getSelectLanguageBible();
-  }
-  onChangeEvent(form: NgForm) {
-    this.cacheService.save({ key: "selectedBible", data: form.value });
-
-    this.book = +form.value.Book;
-    this.chapter = +form.value.Chapter;
-
-    this.getSelectedBible();
   }
 
   onVerse(book: string, chapter: string, verseNumber: string, verse: Verse) {

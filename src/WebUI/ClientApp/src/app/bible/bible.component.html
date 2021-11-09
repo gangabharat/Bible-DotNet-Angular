@@ -1,13 +1,29 @@
 <div class="list-group mb-5">
   <div class="list-group-item list-group-item-action active sticky-top">
-    <form #form="ngForm" >
+    <form #form="ngForm">
       <div class="row">
         <!-- <div class="col">{{ books[book - 1] }} : {{ chapter }}</div> -->
         <div class="col">
-          <label>Book</label>
+          <label
+            >Book
+
+            <span
+              class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-danger
+              "
+            >
+              {{ 66 }}
+            </span>
+          </label>
           <select
             class="form-control"
-            (change)="onChangeEvent(form)"
+            (change)="onBookChangeEvent(form)"
             name="Book"
             [ngModel]="selectedbibleBook"
           >
@@ -17,8 +33,23 @@
           </select>
         </div>
         <div class="col">
-          <label>Chapter</label>
-          <input
+          <label
+            >Chapter
+            <span
+              class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-danger
+              "
+            >
+              {{ bibleChapters.length }}
+            </span>
+          </label>
+          <!-- <input
             type="number"
             class="form-control"
             placeholder="Chapter"
@@ -27,17 +58,46 @@
             min="1"
             max="150"
             [ngModel]="selectedbibleChapter"
-          />
+          /> -->
+
+          <select
+            class="form-control"
+            (change)="onChapterChangeEvent(form)"
+            name="Chapter"
+            [ngModel]="selectedbibleChapter"
+          >
+            <option
+              *ngFor="let bibleChapter of bibleChapters; let i = index"
+              value="{{ i + 1 }}"
+            >
+              {{ i + 1  }}
+            </option>
+          </select>
         </div>
         <div class="col">
-          <label>Language</label>
+          <label
+            >Language
+            <span
+              class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-danger
+              "
+            >
+              {{ bibleLanguages.length }}
+            </span>
+          </label>
           <select
             class="form-control text-capitalize"
-            (change)="onbibleLanguagesChangeEvent(form)"
+            (change)="onLanguageChangeEvent(form)"
             name="Language"
             [ngModel]="selectedbibleLanguage"
           >
-            <option value="-1">--select--</option>
+            <!-- <option value="-1">--select--</option> -->
             <option
               *ngFor="let languages of bibleLanguages; let i = index"
               [value]="languages"

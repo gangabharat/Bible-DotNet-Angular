@@ -1,22 +1,12 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  SimpleChange,
-  OnDestroy,
-  ViewChild,
-  TemplateRef,
-} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { BibleStoreService } from "../service/bible-store.service";
 import { BibleService } from "../service/bible.service";
 import { Bible, Book, Chapter, Verse } from "./bible";
-import { interval } from "rxjs";
 import { NotificationService } from "../service/notification.service";
 import { PushNotificationsService } from "../shared/push-notification.service";
 import { AudioService } from "../shared/audio.service";
-import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { BsModalService } from "ngx-bootstrap/modal";
 import { CacheService } from "../shared/cache.service";
 import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-detail.component";
 
@@ -27,28 +17,18 @@ import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-deta
 })
 export class BibleComponent implements OnInit {
 
-  data: Bible;
-  resData: any;
-  
+  bibleData: Bible;
+  bibleChapter: Chapter;
+
   book: number = 0;
   chapter: number = 0;
   verses: number = 0;
+
   bibleLanguages: string[] = [];
+
   selectedbibleBook: string = "0";
   selectedbibleChapter: string = "1";
   selectedbibleLanguage: string = "-1";
-
-  audio: any;
-  playerStatus: string;
-
-  fileToPlay: string;
-
-  newListModalRef: BsModalRef;
-  listOptionsModalRef: BsModalRef;
-  deleteListModalRef: BsModalRef;
-  itemDetailsModalRef: BsModalRef;
-
-  loadPercentage: number = 0;
 
   constructor(
     private bibleService: BibleService,
@@ -64,10 +44,13 @@ export class BibleComponent implements OnInit {
 
   ngOnInit(): void {
     this.bibleLanguages = this.bibleService.bibleLanguages;
-    let lang = localStorage.getItem("bibleLanguage");
+    let selectedBible = this.cacheService.load("selectedBible");
 
-    if (lang) {
-      this.selectedbibleLanguage = lang;
+    if (selectedBible) {
+      this.bibleService.BibleLanguage = selectedBible.Language;
+      this.selectedbibleLanguage = selectedBible.Language;
+      this.selectedbibleBook = selectedBible.Book;
+      this.selectedbibleChapter = selectedBible.Chapter;
     }
 
     this.book = +this.selectedbibleBook;
@@ -76,28 +59,29 @@ export class BibleComponent implements OnInit {
   }
 
   getSelectLanguageBible() {
-    let bibleLanguage = localStorage.getItem("bibleLanguage");
-    this.bibleService.BibleLanguage = bibleLanguage;
+    let selectedBible = this.cacheService.load("selectedBible");
+
+    this.bibleService.BibleLanguage = selectedBible.Language;
     this.bibleService.getBible().subscribe((res: Bible) => {
-      this.data = res;
+      this.bibleData = res;
       this.getSelectedBible();
     });
   }
 
   getSelectedBible() {
-    this.resData = this.data.Book[this.book]?.Chapter[this.chapter - 1];
+    this.bibleChapter = this.bibleData.Book[this.book]?.Chapter[this.chapter - 1];
   }
 
   onbibleLanguagesChangeEvent(form: NgForm) {
-    localStorage.setItem("bibleLanguage", form.value.Language);
+    this.cacheService.save({ key: "selectedBible", data: form.value });
 
     this.book = +form.value.Book;
     this.chapter = +form.value.Chapter;
     this.getSelectLanguageBible();
   }
-  onChangeEvent(form: NgForm) {
-    console.log(form.value);
-
+  onChangeEvent(form: NgForm) {    
+    this.cacheService.save({ key: "selectedBible", data: form.value });
+    
     this.book = +form.value.Book;
     this.chapter = +form.value.Chapter;
 

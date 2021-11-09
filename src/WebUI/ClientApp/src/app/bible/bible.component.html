@@ -50,12 +50,12 @@
       </div>
     </form>
   </div>
-  <div class="" *ngIf="resData">
+  <div *ngIf="bibleChapter">
     <button
       type="button"
       class="list-group-item list-group-item-action card-shadow"
       (click)="onVerse(books[book], chapter, i + 1, verse)"
-      *ngFor="let verse of resData.Verse; let i = index"
+      *ngFor="let verse of bibleChapter.Verse; let i = index"
     >
       <b>{{ i + 1 }} : </b>{{ verse.Verse }}
     </button>

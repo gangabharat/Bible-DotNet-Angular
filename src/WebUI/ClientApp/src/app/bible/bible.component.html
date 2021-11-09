@@ -1,6 +1,6 @@
 <div class="list-group mb-5">
   <div class="list-group-item list-group-item-action active sticky-top">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <form #form="ngForm" >
       <div class="row">
         <!-- <div class="col">{{ books[book - 1] }} : {{ chapter }}</div> -->
         <div class="col">
@@ -9,9 +9,7 @@
             class="form-control"
             (change)="onChangeEvent(form)"
             name="Book"
-            ngModel
-            #Book="ngModel"
-            [ngModel]="0"
+            [ngModel]="selectedbibleBook"
           >
             <option *ngFor="let book of books; let i = index" value="{{ i }}">
               {{ book }}
@@ -27,18 +25,17 @@
             (change)="onChangeEvent(form)"
             name="Chapter"
             min="1"
-            max="66"
-            [ngModel]="1"
-            ngModel
-            #Chapter="ngModel"
+            max="150"
+            [ngModel]="selectedbibleChapter"
           />
         </div>
         <div class="col">
           <label>Language</label>
           <select
             class="form-control"
-            (change)="onbibleLanguagesChangeEvent(bibleLanguagesId.value)"
-            #bibleLanguagesId
+            (change)="onbibleLanguagesChangeEvent(form)"
+            name="Language"
+            [ngModel]="selectedbibleLanguage"
           >
             <option value="-1">--select--</option>
             <option
@@ -57,7 +54,7 @@
     <button
       type="button"
       class="list-group-item list-group-item-action card-shadow"
-      (click)="onVerse(books[book - 1], chapter, i + 1, verse)"
+      (click)="onVerse(books[book], chapter, i + 1, verse)"
       *ngFor="let verse of resData.Verse; let i = index"
     >
       <b>{{ i + 1 }} : </b>{{ verse.Verse }}

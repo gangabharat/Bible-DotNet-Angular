@@ -26,19 +26,17 @@ import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-deta
   styleUrls: ["./bible.component.css"],
 })
 export class BibleComponent implements OnInit {
-  faBookOpen = faCoffee;
-  @ViewChild("form") form: NgForm;
 
   data: Bible;
   resData: any;
-  //resData : Book;
-  bibleChapters: number;
+  
   book: number = 0;
   chapter: number = 0;
   verses: number = 0;
-  audioBible: string;
   bibleLanguages: string[] = [];
-  selectedbibleLanguage: string;
+  selectedbibleBook: string = "0";
+  selectedbibleChapter: string = "1";
+  selectedbibleLanguage: string = "-1";
 
   audio: any;
   playerStatus: string;
@@ -58,7 +56,6 @@ export class BibleComponent implements OnInit {
     private notificationService: NotificationService,
     private pushNotificationsService: PushNotificationsService,
     private audioService: AudioService,
-    private modalService: BsModalService,
     private cacheService: CacheService,
     private bsModalService: BsModalService
   ) {
@@ -66,49 +63,48 @@ export class BibleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.bibleLanguages = this.bibleService.bibleLanguages;
     let lang = localStorage.getItem("bibleLanguage");
+
     if (lang) {
-      this.bibleService.BibleLanguage = lang;
-      //this.selectedbibleLanguage = lang;
-    }    
-    this.bibleService.getBible().subscribe((res: Bible) => {
-      this.data = res;
-      this.onChangeEvent(this.form);    
-    });
-  }
-
-  randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  onSubmit(form: NgForm) {
-    this.onChangeEvent(form);
-  }
-  onbibleLanguagesChangeEvent(value: string) {
-    localStorage.setItem("bibleLanguage", value);
-
-    //let lang = localStorage.getItem("bibleLanguage");
-    if (value) {
-      this.bibleService.BibleLanguage = value;
+      this.selectedbibleLanguage = lang;
     }
+
+    this.book = +this.selectedbibleBook;
+    this.chapter = +this.selectedbibleChapter;
+    this.getSelectLanguageBible();
+  }
+
+  getSelectLanguageBible() {
+    let bibleLanguage = localStorage.getItem("bibleLanguage");
+    this.bibleService.BibleLanguage = bibleLanguage;
     this.bibleService.getBible().subscribe((res: Bible) => {
       this.data = res;
-      this.onChangeEvent(this.form);
+      this.getSelectedBible();
     });
+  }
+
+  getSelectedBible() {
+    this.resData = this.data.Book[this.book]?.Chapter[this.chapter - 1];
+  }
+
+  onbibleLanguagesChangeEvent(form: NgForm) {
+    localStorage.setItem("bibleLanguage", form.value.Language);
+
+    this.book = +form.value.Book;
+    this.chapter = +form.value.Chapter;
+    this.getSelectLanguageBible();
   }
   onChangeEvent(form: NgForm) {
-    this.bibleStoreService.addPuppy(form.value);
-    this.book = +form.value.Book + 1;
-    this.chapter = form.value.Chapter;
+    console.log(form.value);
 
-    this.resData =
-      this.data.Book[form.value.Book]?.Chapter[form.value.Chapter - 1];
+    this.book = +form.value.Book;
+    this.chapter = +form.value.Chapter;
+
+    this.getSelectedBible();
   }
 
-  onVerse(book: string, chapter: string, verseNumber: string, verse: Verse) {  
+  onVerse(book: string, chapter: string, verseNumber: string, verse: Verse) {
     this.bsModalService.show(BibleVerseDetailComponent, {
       initialState: { book, chapter, verseNumber, verse },
       animated: true,

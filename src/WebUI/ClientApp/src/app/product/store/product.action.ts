@@ -3,8 +3,8 @@ import { Product } from "../product.model";
 
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
-export const UPDATE_PRODUCT = "UPDATE_PRODUCTS";
-export const DELETE_PRODUCT = "DELETE_PRODUCTS";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 export class AddProduct implements Action {
   readonly type = ADD_PRODUCT;

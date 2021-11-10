@@ -27,8 +27,8 @@
             name="Book"
             [ngModel]="selectedbibleBook"
           >
-            <option *ngFor="let book of books; let i = index" value="{{ i }}">
-              {{ book }}
+            <option *ngFor="let bookIndex of bibleBookIndex; let i = index" value="{{ i }}">
+              {{ bookIndex.book }}  ({{bookIndex.chapters.length}})
             </option>
           </select>
         </div>
@@ -46,7 +46,7 @@
                 bg-danger
               "
             >
-              {{ bibleChapters.length }}
+              {{ selectedBibleBookIndex.chapters.length }}
             </span>
           </label>
           <!-- <input
@@ -67,10 +67,10 @@
             [ngModel]="selectedbibleChapter"
           >
             <option
-              *ngFor="let bibleChapter of bibleChapters; let i = index"
-              value="{{ i + 1 }}"
+              *ngFor="let bibleChapter of selectedBibleBookIndex.chapters; let i = index"
+              value="{{ bibleChapter.chapter }}"
             >
-              {{ i + 1  }}
+              {{ bibleChapter.chapter  }}  ({{ bibleChapter.verses  }}) 
             </option>
           </select>
         </div>

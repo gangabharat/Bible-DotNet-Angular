@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { BibleStoreService } from "../service/bible-store.service";
 import { BibleService } from "../service/bible.service";
-import { Bible, Book, Chapter, Verse } from "./bible";
+import { Bible, Book, Chapter, Verse, BibleBookIndex } from "./bible";
 import { NotificationService } from "../service/notification.service";
 import { PushNotificationsService } from "../shared/push-notification.service";
 import { AudioService } from "../shared/audio.service";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CacheService } from "../shared/cache.service";
 import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-detail.component";
+import { BibleBookIndexService } from "../service/bible-book-index.service";
 
 @Component({
   selector: "app-bible",
@@ -16,6 +17,9 @@ import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-deta
   styleUrls: ["./bible.component.css"],
 })
 export class BibleComponent implements OnInit {
+  bibleBookIndex: BibleBookIndex[] = [];
+  selectedBibleBookIndex: BibleBookIndex;
+
   bibleData: Bible;
   bibleChapter: Chapter;
   bibleChapters: Chapter[] = [];
@@ -33,6 +37,7 @@ export class BibleComponent implements OnInit {
 
   constructor(
     private bibleService: BibleService,
+    private bibleBookIndexService: BibleBookIndexService,
     private bibleStoreService: BibleStoreService,
     private notificationService: NotificationService,
     private pushNotificationsService: PushNotificationsService,
@@ -66,6 +71,24 @@ export class BibleComponent implements OnInit {
     this.book = +this.selectedbibleBook;
     this.chapter = +this.selectedbibleChapter;
     this.getSelectLanguageBible();
+    this.loadBibleIndex();
+  }
+
+  loadBibleIndex() {
+    this.bibleBookIndexService
+      .getBibleBookIndex()
+      .subscribe((bibleBookIndexRes: BibleBookIndex[]) => {
+        this.bibleBookIndex = bibleBookIndexRes;
+        this.loadBibleChapterIndex();
+        
+      });
+  }
+
+  loadBibleChapterIndex() {
+    this.selectedBibleBookIndex = this.bibleBookIndex.find((x, index) => {
+      return index == this.book;
+    });
+
   }
 
   getSelectLanguageBible() {
@@ -95,6 +118,7 @@ export class BibleComponent implements OnInit {
     this.chapter = +form.value.Chapter;
     this.cacheService.save({ key: "selectedBible", data: form.value });
     this.loadSelectedBible();
+    this.loadBibleChapterIndex();
   }
 
   onChapterChangeEvent(form: NgForm) {
@@ -104,9 +128,6 @@ export class BibleComponent implements OnInit {
     this.chapter = +form.value.Chapter;
 
     this.loadSelectedBible();
-
-    if (this.bibleChapters.length < this.chapter)
-      form.control.patchValue({ Chapter: 1 });
   }
 
   onLanguageChangeEvent(form: NgForm) {

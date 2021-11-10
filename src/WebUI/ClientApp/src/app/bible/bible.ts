@@ -31,3 +31,16 @@ export class Convert {
         return JSON.stringify(value);
     }
 }
+
+
+// bible-book-info.json model 
+export interface BibleBookIndexChapter {
+    chapter: string;
+    verses: string;
+  }
+  
+  export interface BibleBookIndex {
+    abbr: string;
+    book: string;
+    chapters: BibleBookIndexChapter[];
+  }

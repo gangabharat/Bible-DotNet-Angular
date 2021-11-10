@@ -5,7 +5,11 @@
 </div> -->
 
 <div class="modal-header clearfix">
-  <h4 class="modal-title float-left">{{ book }} {{ chapter }} : {{ verseNumber }}</h4>
+  <h4 class="modal-title float-left">
+    {{ bibleBookIndex.book }} {{ chapter }} : {{ verseNumber }}
+  </h4>
+  <span class="badge badge-pill badge-success">{{ bibleBookIndex.abbr }}</span>
+
   <button
     type="button"
     class="close float-right"
@@ -21,5 +25,7 @@
     <h2>{{ verse.Verse }}</h2>
   </div>
 
-  <h1 class="card-title">{{ book }} {{ chapter }} : {{ verseNumber }}</h1>
+  <h1 class="card-title">
+    {{ bibleBookIndex.abbr }} {{ chapter }} : {{ verseNumber }}
+  </h1>
 </div>

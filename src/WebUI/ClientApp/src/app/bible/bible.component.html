@@ -114,7 +114,7 @@
     <button
       type="button"
       class="list-group-item list-group-item-action card-shadow"
-      (click)="onVerse(books[book], chapter, i + 1, verse)"
+      (click)="onVerse(bibleBookIndex[book], chapter, i + 1, verse)"
       *ngFor="let verse of bibleChapter.Verse; let i = index"
     >
       <b>{{ i + 1 }} : </b>{{ verse.Verse }}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { Verse } from "../bible";
+import { BibleBookIndex, Verse } from "../bible";
 
 @Component({
   selector: "app-bible-verse-detail",
@@ -8,7 +8,7 @@ import { Verse } from "../bible";
   styleUrls: ["./bible-verse-detail.component.css"],
 })
 export class BibleVerseDetailComponent implements OnInit {
-  book: string;
+  bibleBookIndex: BibleBookIndex;
   chapter: string;
   verseNumber : string;
   verse: Verse;

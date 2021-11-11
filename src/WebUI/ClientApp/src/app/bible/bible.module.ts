@@ -8,6 +8,7 @@ import { BibleBookComponent } from "./bible-book/bible-book.component";
 import { BibleBookChapterComponent } from "./bible-book-chapter/bible-book-chapter.component";
 import { BibleRecentHistoryComponent } from "./bible-recent-history/bible-recent-history.component";
 import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-detail.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,6 @@ import { BibleVerseDetailComponent } from "./bible-verse-detail/bible-verse-deta
     BibleRecentHistoryComponent,
     BibleVerseDetailComponent,
   ],
-  imports: [CommonModule, FormsModule, BibleRoutingModule],
+  imports: [CommonModule, FormsModule, BibleRoutingModule, FontAwesomeModule],
 })
 export class BibleModule {}

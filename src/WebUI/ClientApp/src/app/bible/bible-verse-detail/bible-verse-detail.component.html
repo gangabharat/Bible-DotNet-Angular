@@ -8,7 +8,9 @@
   <h4 class="modal-title float-left">
     {{ bibleBookIndex.book }} {{ chapter }} : {{ verseNumber }}
   </h4>
-  <span class="badge badge-pill badge-success">{{ bibleBookIndex.abbr }}</span>
+  <span class="badge badge-pill badge-success font-italic">{{
+    bibleBookIndex.abbr
+  }}</span>
 
   <button
     type="button"
@@ -21,6 +23,18 @@
 </div>
 
 <div class="card-body">
+  <div class="alert alert-success fade show">
+    <strong>Share Whatsapp !</strong>
+    <a
+      href="https://api.whatsapp.com/send?text={{ verse.Verse }} - {{
+        bibleBookIndex.book
+      }} {{ chapter }} : {{ verseNumber }}"
+      target="_blank"
+    >
+      <fa-icon [icon]="faShare"></fa-icon>
+    </a>
+  </div>
+
   <div class="card-text">
     <h2>{{ verse.Verse }}</h2>
   </div>

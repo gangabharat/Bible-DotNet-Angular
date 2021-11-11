@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 import { NewsHttpService } from "./news-http.service";
 import { News } from "./news.model";
 import { NewsService } from "./news.service";
@@ -10,6 +11,7 @@ import { NewsService } from "./news.service";
 })
 export class NewsComponent implements OnInit {
   newsData: News[] = [];
+  news$ = new Observable<News[]>();
   constructor(
     private newsHttpService: NewsHttpService,
     private newsService: NewsService
@@ -18,14 +20,17 @@ export class NewsComponent implements OnInit {
   ngOnInit(): void {
     this.newsHttpService.getNews().subscribe((res) => {
       this.newsService.load(res);
+      this.loadMore();
     });
 
-    this.newsService.puppies$.subscribe((res) => {
-      console.log(res);
-    });    
+    this.news$ = this.newsService.puppies$;
   }
 
   loadMore() {
-    this.newsService.loadMore();    
+   this.newsService.loadMore();
+  }
+
+  onScrollingFinished() {
+    this.newsService.loadMore();
   }
 }
